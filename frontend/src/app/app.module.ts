@@ -16,6 +16,8 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { Payment2Component } from './payment2/payment2.component';
 import { CompleteComponent } from './complete/complete.component';
 import { ProductFiltersComponent } from './product-filters/product-filters.component';
+import { LoginComponent } from './login/login.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { ProductFiltersComponent } from './product-filters/product-filters.compo
     ProductDetailComponent,
     Payment2Component,
     CompleteComponent,
-    ProductFiltersComponent
+    ProductFiltersComponent,
+    LoginComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,

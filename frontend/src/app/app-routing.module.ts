@@ -5,7 +5,9 @@ import { HomeComponent } from './home/home.component';
 import { PaymentComponent } from './payment/payment.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { Payment2Component } from './payment2/payment2.component';
-import{CompleteComponent} from './complete/complete.component'
+import{CompleteComponent} from './complete/complete.component';
+import{SignUpComponent} from './sign-up/sign-up.component';
+import {LoginComponent} from './login/login.component'
 import { ProductFiltersComponent } from './product-filters/product-filters.component';
 
 const routes: Routes = [
@@ -25,7 +27,11 @@ const routes: Routes = [
   // { path: '**', redirectTo: '/' },
 
 
-  { path: 'product-detail/:id', component: ProductDetailComponent }
+  { path: 'product-detail/:id', component: ProductDetailComponent },
+
+  { path: 'login', component: LoginComponent },
+
+  { path: 'sign-up', component: SignUpComponent }
 
 
 ];
