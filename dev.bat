@@ -1,14 +1,14 @@
 title dev all script runner
 
 
-cd E:\Ecommerce-Store-Angular-\backend
+cd E:\Zepto\Intern-Pratcice\Ecommerce-Store-Angular-\backend
 start start-server.bat
 
 
 
 SET NODE_ENV=saqlain
 title web front end
-cd E:\Ecommerce-Store-Angular-\frontend
+cd E:\Zepto\Intern-Pratcice\Ecommerce-Store-Angular-\frontend
 start ng serve
 
 
