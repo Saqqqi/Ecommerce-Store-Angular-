@@ -18,6 +18,7 @@ import { CompleteComponent } from './complete/complete.component';
 import { ProductFiltersComponent } from './product-filters/product-filters.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    RouterModule.forRoot([]),
     NgbModule,
     FormsModule,
     HttpClientModule,

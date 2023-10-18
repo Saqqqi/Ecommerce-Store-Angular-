@@ -9,9 +9,13 @@ import{CompleteComponent} from './complete/complete.component';
 import{SignUpComponent} from './sign-up/sign-up.component';
 import {LoginComponent} from './login/login.component'
 import { ProductFiltersComponent } from './product-filters/product-filters.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-  {path:'' ,component: HomeComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' }, // Redirect to login by default
+  { path: 'login', component: LoginComponent },
+  { path: 'sign-up', component: SignUpComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] }, // Protect home route with AuthGuard
   {path:'cart' ,component: CartComponent },
 
   { path: 'payment', component: PaymentComponent },
@@ -29,9 +33,9 @@ const routes: Routes = [
 
   { path: 'product-detail/:id', component: ProductDetailComponent },
 
-  { path: 'login', component: LoginComponent },
+  
 
-  { path: 'sign-up', component: SignUpComponent }
+
 
 
 ];
