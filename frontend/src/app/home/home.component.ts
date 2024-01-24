@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ProductService } from '../product.service';
 import { CartService } from '../cart.service';
-import { ProductDetailService } from '../product-detail.service';
+
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,25 +14,30 @@ export class HomeComponent {
   selectedCategory: string = '';
   products: any[] = [];
   p: number = 1;
-  cart: any[] = [];
-  cartCount = 0;
   alertMessage: string = '';
 
-  constructor(
-    private productService: ProductService,
-    private productDetailService: ProductDetailService,
-    private cartService: CartService
-  ) { }
 
-  ngOnInit() {
+  constructor(private productService: ProductService, private cartService: CartService, private router: Router) { }
+
+
+  ngOnInit(): void {
     this.productService.getProducts().subscribe(data => {
-      this.products = data;
+      this.products = data.data;
+      console.log('Fetched Products:', this.products); // Log the fetched products
       this.extractCategories();
     });
   }
-
-  extractCategories() {
-    this.categories = Array.from(new Set(this.products.map(product => product.category)));
+  imageLoadError(event: any) {
+    console.error('Image load error:', event);
+    console.log('Image source:', event.target.src);
+  }
+  imageLoadSuccess(event: any) {
+    console.log('Image load success:', event);
+  }
+  
+  
+  extractCategories(): void {
+    this.categories = [...new Set(this.products.map(product => product.attributes.Brand))];
   }
 
   filterProductsByCategory(category: string) {
@@ -46,33 +52,21 @@ export class HomeComponent {
     }
   }
 
-  showProductDetails(product: any): void {
-    this.productDetailService.updateProductDetails(product);
-  }
+// HomeComponent
+showProductDetails(product: any): void {
+  // Log the clicked product before updating the service
+  console.log('Clicked Product in HomeComponent:', product);
 
-  addToCart(product: any) {
-    if (product.available > 1) {
-      // add product to cart
-      this.productService.addToCart(product);
-      this.cartService.addToCart(product);
-      // decrease available count by 1
-      product.available--;
-    } else if (product.available === 1) {
-      // add product to cart
-      this.productService.addToCart(product);
-      this.cartService.addToCart(product);
-      // decrease available count by 1
-      product.available--;
-      // set alert message for this product only
-      this.alertMessage = `The ${product.name} is the last item in stock.`;
-    } else {
-      // reset alert message if the product is already sold out
-      this.alertMessage = '';
-    }
-    // check if all products are sold out
-    const soldOutProducts = this.products.filter(p => p.available === 0);
-    if (soldOutProducts.length === this.products.length) {
-      this.alertMessage = 'All products are sold out!';
-    }
-  }
+  // Update product details in the ProductService
+  this.productService.storeClickedProduct(product);
+
+  // Navigate to the product detail page with the product ID
+  this.router.navigate(['/product-detail', product.id]);
+}
+
+  
+  
+  
+
+  
 }

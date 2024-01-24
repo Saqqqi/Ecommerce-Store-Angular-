@@ -1,0 +1,25 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Your Listed Products</h2>
+
+  <!-- Product List -->
+  <div class="row">
+    <!-- Product Card -->
+    <div *ngFor="let product of sellerProducts" class="col-md-4 mb-4">
+      <div class="card product-card">
+        <!-- Assuming you have an image URL in the product attributes -->
+        <img  src="../../../assets/Laptop Pro.jpg" class="card-img-top" alt="{{ product.attributes.Title }} Image">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.attributes.Title }}</h5>
+          <!-- Assuming you have a description in the product attributes -->
+          <p class="card-text">{{ product.attributes.TagLine }}</p>
+          <a href="#" class="btn btn-primary">View Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- See More Button -->
+  <div class="d-flex justify-content-center mt-4">
+    <button class="btn btn-outline-secondary btn-lg">See More</button>
+  </div>
+</div>

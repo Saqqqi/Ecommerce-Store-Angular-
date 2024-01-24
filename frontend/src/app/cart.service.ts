@@ -1,55 +1,36 @@
+// cart.service.ts
+
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  cartItems: any[] = [];
-  totalPrice: number = 0;
 
-  constructor() { }
+  private apiUrl = 'http://localhost:1337/api'; // Adjust as needed
 
-  addToCart(item: any) {
-    // Check if the item already exists in the cart
-    const existingItem = this.cartItems.find(i => i.id === item.id);
-    if (existingItem) {
-      // If it exists, increment the quantity and update the total
-      existingItem.quantity += 1;
-      existingItem.total = existingItem.newPrice * existingItem.quantity; // use newPrice instead of price
-      
-     // use newPrice instead of price
+  constructor(private http: HttpClient, private authService: AuthService) { }
+
+  getCart(): Observable<any> {
+    const user = this.authService.getUser();
+    const userId = user && user.id ? user.id : null;
+    console.log("hello",user)
+
+    // Log user information
+    console.log('User ID:', userId);
+
+    if (userId) {
+      // Use the user ID to fetch the cart data
+      const url = `${this.apiUrl}/products?populate=*&filters[owners]=${userId}`;
+
+      return this.http.get<any>(url);
     } else {
-      // If it doesn't exist, add it to the cart with a quantity of 1 and a total equal to the item price
-      const newItem = { ...item, quantity: 1, total: item.newPrice }; // use newPrice instead of price
-      this.cartItems.push(newItem);
-    }
-    // Update the total price of all items in the cart
-    this.totalPrice = this.cartItems.reduce((sum, item) => sum + item.total, 0);
-
- 
-  }
-  
-  deleteFromCart(item: any) {
-    console.log('deleteFromCart called');
-    const index = this.cartItems.indexOf(item);
-    if (index !== -1) {
-      const itemPrice = item.total;
-      this.cartItems.splice(index, 1);
-      console.log('Item removed from cart:', item);
-      this.calculateTotalPrice();
+      console.error('User not logged in. Cannot fetch cart.');
+      // Return an observable with an empty array or handle the error accordingly
+      return new Observable<any>(observer => observer.next([]));
     }
   }
-  
-  
-  
-  
-  calculateTotalPrice() {
-    console.log('calculateTotalPrice called');
-    this.totalPrice = this.cartItems.reduce((acc, item) => {
-        return acc + item.total;
-    }, 0);
-    console.log("Updated total price:", this.totalPrice);
-}
-
-  
 }

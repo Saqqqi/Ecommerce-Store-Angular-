@@ -1,0 +1,108 @@
+<header class="bg-dark text-white text-center py-3">
+    <h1 class="dashboard-title">Seller Dashboard</h1>
+    <p class="text-light">Welcome, <span id="username">{{username }}</span>!</p>
+  </header>
+  
+  
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card bg-light">
+          <div class="card-body">
+            <h2 class="card-title">Total Products Listed</h2>
+            <p class="card-text">{{ sellerProducts.length }}</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-4">
+        <div class="card bg-light">
+          <div class="card-body">
+            <h2 class="card-title">Total Orders</h2>
+            <p class="card-text">150</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-4">
+        <div class="card bg-light">
+          <div class="card-body">
+            <h2 class="card-title">Average Rating</h2>
+            <p class="card-text">4.5</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<!-- sellers-dashboard.component.html -->
+<div class="container mt-4 recent-products-card">
+  <div class="card bg-light">
+    <div class="card-body">
+      <h2 class="card-title">Recently Products List</h2>
+      <table class="table table-bordered recent-products-table">
+        <thead class="thead-dark">
+          <tr>
+            <th>Product ID</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Offer Price</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Loop through recently viewed products, limit to 3 -->
+          <tr *ngFor="let product of sellerProducts.slice(0, 3)">
+            <td>{{ product.id }}</td>
+            <td>{{ product.attributes.Title }}</td>
+            <td>{{ product.attributes.Price }}</td>
+            <td>{{ product.attributes.OfferPrice }}</td>
+            <td>
+              <button class="btn btn-primary" [routerLink]="['/seller/product-detail', product.id]">Details</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="btn btn-primary" routerLink="/seller/product-list">See More</button>
+    </div>
+  </div>
+</div>
+
+  
+  
+  
+  <div class="container mt-4 recent-orders-card">
+    <div class="card bg-light">
+      <div class="card-body">
+        <h2 class="card-title">Recent Orders</h2>
+        <table class="table table-bordered recent-orders-table">
+          <thead class="thead-dark">
+            <tr>
+              <th>Order ID</th>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Product A</td>
+              <td>2</td>
+              <td>$100</td>
+              <td><button class="btn btn-primary" onclick="viewProductDetails(1)">Details</button></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Product B</td>
+              <td>1</td>
+              <td>$50</td>
+              <td><button class="btn btn-primary" onclick="viewProductDetails(2)">Details</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="btn btn-primary" onclick="viewAllProducts()">View All Products</button>
+      </div>
+    </div>
+  </div>

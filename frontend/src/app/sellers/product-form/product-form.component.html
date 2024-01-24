@@ -1,0 +1,83 @@
+<div class="container mt-4">
+  <h2>Add New Product</h2>
+  <form [formGroup]="formData" (ngSubmit)="onSubmit()">
+
+    <!-- Basic Product Information -->
+    <div class="form-group">
+      <label for="title">Product Name</label>
+      <input type="text" class="form-control" id="title" placeholder="Enter product name" formControlName="title">
+    </div>
+
+    <div class="form-group">
+      <label for="category">Product Category</label>
+      <input type="text" class="form-control" id="category" placeholder="Enter product category" formControlName="category">
+    </div>
+
+    <div class="form-group">
+      <label for="tagline">Product Tagline</label>
+      <textarea class="form-control" id="tagline" rows="3" placeholder="Enter product tagline" formControlName="tagline"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Product Description</label>
+      <textarea class="form-control" id="description" rows="3" placeholder="Enter product description" formControlName="description"></textarea>
+    </div>
+
+    <!-- Pricing and Stock -->
+    <div class="form-row">
+      
+      <div class="form-group col-md-6">
+        <label for="stockQuantity">Stock Quantity</label>
+        <input type="number" class="form-control" id="stockQuantity" placeholder="Enter stock quantity" formControlName="stockQuantity">
+      </div>
+    </div>
+
+    <!-- Discount Information -->
+    <!-- ... (other form controls) -->
+
+<!-- ... (other form controls) -->
+
+<div class="form-group">
+  <!-- Product Price -->
+  <div class="form-group col-md-6">
+    <label for="price">Product Price</label>
+    <input type="number" class="form-control" id="price" placeholder="Enter product price" formControlName="price">
+  </div>
+  
+  <!-- Apply Discount Checkbox -->
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="applyDiscount" formControlName="applyDiscount">
+    <label class="form-check-label" for="applyDiscount">Apply Discount</label>
+  </div>
+
+  <!-- Discount Fields -->
+  <div id="discountFields" *ngIf="formData.value.applyDiscount; else noDiscountFields">
+    <label for="discountPercentage">Discount Percentage</label>
+    <input type="number" class="form-control" id="discountPercentage" placeholder="Enter discount percentage" formControlName="discountPercentage">
+
+    <label for="discountedPrice">Discounted Price</label>
+    <input type="number" class="form-control" id="discountedPrice" placeholder="Discounted Price" formControlName="discountedPrice">
+      
+    <!-- ... (other discount-related fields) -->
+  </div>
+
+  <!-- Template for No Discount Applied -->
+  <ng-template #noDiscountFields>
+    <!-- You can optionally include some content if discount is not applied -->
+  </ng-template>
+</div>
+
+<!-- ... (other form controls) -->
+
+    
+
+    <!-- Product Variations (if applicable) -->   
+    <!-- <div class="form-group">
+      <label for="productVariations">Product Variations</label>
+      <input type="text" class="form-control" id="productVariations" placeholder="Enter product variations" formControlName="productVariations">
+    </div> -->
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary" [disabled]="!formData.valid">Add Product</button>
+  </form>
+</div>
